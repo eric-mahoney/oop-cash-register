@@ -7,24 +7,23 @@
 import random
 
 class Player:
-	def __init__(self, name, score=0):
-		self.name = name
+	def __init__(self,name=None,score=0):
+		self.name = input("What is your name: ")
 		self.score = score
 
-	def returnName(self):
-		return name
+	def setName(self):
+		self.name = input("What is your name: ")
 
-	def setName(self,name):
-		name = self.name
-		return("Name changed to: ", name)
+	def returnName(self):
+		return("Welcome to the game: ")
 
 class Customer:
-	def __init__(self, name, money):
+	def __init__(self):
 		# list of different names for our customers
-		self.name = ['John':, 'Bob', 'Linda', 'Tom', 'Richard', 'Hubert']
+		self.name = ['John', 'Bob', 'Linda', 'Tom', 'Richard', 'Hubert', 'Alison', 'Maddison', 'Eric', 'Candice', 'Tiffany', 'Sydney', 'Adam', 'William', 'Patricia']
 		
 		# list of different amounts of money that our customers will buy food with.
-		self.money = [9.25, 5.00, 10.00, 7.50, 20.00]
+		self.money = [9.25, 5.00, 10.00, 7.50, 10.00, 20.00, 5.50, 15.25, 12.75, 35.70]
 		
 		# dictionary list of groceries from:
 		# http://www.visualcapitalist.com/decade-grocery-prices/
@@ -58,10 +57,44 @@ class Customer:
 		'sugar': 0.65,
 		'ice cream': 4.70
 		}
+	# NOT WORKING YET # 
+	def randGroceries(self):	
+		
+		#empty shopping cart that will hold 5 different items of different prices
+		cart_items = []
+		item_prices = []
+		# for loop that loops through the dictionary and pulls different groceries
+		for i in range(0,5):
+			cart_items.append(random.choice(list(self.groceries)),)
+		
+		for item in cart_items:
+			price = self.groceries.get(items)
+			item_prices.append(price)
+			print("ADDED: " + item + " TO CART")
+
+
+		# returns the completed shopping cart 
+		return shopping_cart
+	
+
+	# COMPLETELY WORKING #
+	def randCustomer(self): 
+		
+		# gets random name from the list above using the random library
+		randomName = self.name[random.randint(0,14)]
+		
+		# gets random money from the list above using the random library
+		randomMoney = self.money[random.randint(0,9)]
+		
+		# empty dictionary that will hold information about the customer
+		customer = {randomName: randomMoney}
+		
+		# returns the dictionary of the customer
+		return customer
 
 	def getCustomer(self):
-
-
+		customer = randCustomer()
+		return customer
 class Register:
 	def __init__(self,one,five,ten,twenty,fifty,oneHundred):
 		self.one = one
@@ -70,7 +103,6 @@ class Register:
 		self.twenty = twenty
 		self.fifty = fifty
 		self.oneHundred = oneHundred
-
 class Score:
 	def __init__(self):
 		self.score = score
@@ -85,7 +117,6 @@ class Score:
 
 	def returnScore(self):
 		return score
-
 class Purchase:
 	def __init__(self):
 		self.price = price
@@ -95,6 +126,11 @@ class Purchase:
 		tax = price * va_sales_tax
 		return tax
 
-class Main:
-	def __init__(self):
-		self.main = main
+def Main():
+
+	# sets up the player
+	new_player = Player()
+	new_player.setName()
+
+	# creates a new customer:
+	customer = Customer()
