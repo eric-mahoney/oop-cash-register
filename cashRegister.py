@@ -1,31 +1,36 @@
 # Creators: Eric Mahoney & Anuruddha Karunaratne 
 # Course: IT 209 
-# Assignment: 8 [Project]
+# Assignment: 8 [Cash Register Project]
 # Description: Cash register game using object oriented programming. Users are prompted with a customer's transaction and must provide the correct amount of change for that transaction. Users get one point for a correct answer and lose 1 point if incorrect.
 
 # imports the random library that we will use to generate random customers and monetary values
 import random
 
+# creates a class called Player that keeps track of the names and scores of the players
 class Player:
 	def __init__(self,name=None,score=0):
 		self.name = input("What is your name: ")
 		self.score = score
 
+	# sets the player's name
 	def setName(self):
 		self.name = input("What is your name: ")
 
+	# returns the player's name
 	def returnName(self):
-		return("Welcome to the game: ")
+		return self.name
 
+# creates a class called Customer that defines methods to randomly generator different customers
 class Customer:
 	def __init__(self):
+
 		# list of different names for our customers
 		self.name = ['John', 'Bob', 'Linda', 'Tom', 'Richard', 'Hubert', 'Alison', 'Maddison', 'Eric', 'Candice', 'Tiffany', 'Sydney', 'Adam', 'William', 'Patricia']
 		
 		# list of different amounts of money that our customers will buy food with.
 		self.money = [9.25, 5.00, 10.00, 7.50, 10.00, 20.00, 5.50, 15.25, 12.75, 35.70]
 		
-		# dictionary list of groceries from:
+		# dictionary list of groceries prices from:
 		# http://www.visualcapitalist.com/decade-grocery-prices/
 		self.groceries = {
 		'white bread': 1.34,
@@ -57,6 +62,7 @@ class Customer:
 		'sugar': 0.65,
 		'ice cream': 4.70
 		}
+
 	# NOT WORKING YET # 
 	def randGroceries(self):	
 		
@@ -95,6 +101,8 @@ class Customer:
 	def getCustomer(self):
 		customer = randCustomer()
 		return customer
+
+# defines a Register class that will hold different values of money
 class Register:
 	def __init__(self,one,five,ten,twenty,fifty,oneHundred):
 		self.one = one
@@ -103,20 +111,25 @@ class Register:
 		self.twenty = twenty
 		self.fifty = fifty
 		self.oneHundred = oneHundred
-class Score:
+
+# creates a class called Score that will be run when we need to keep track of high scores
+class Scores:
 	def __init__(self):
-		self.score = score
+		self.scores = {}
 
-	def addScore(self):
-		score += 1
-		return score
+	def addScore(self,user,score):
+		scores[score] = user
+		return self.scores
 
-	def subScore(self):
-		score -= 1
-		return score
+	def removeScore(self):
+		if key in scores:
+			del scores[key]
+		return self.scores
 
 	def returnScore(self):
-		return score
+		return self.score
+
+# creates a class for purchases
 class Purchase:
 	def __init__(self):
 		self.price = price
@@ -126,11 +139,10 @@ class Purchase:
 		tax = price * va_sales_tax
 		return tax
 
-def Main():
 
-	# sets up the player
-	new_player = Player()
-	new_player.setName()
+# sets up the player
+new_player = Player()
+new_player.setName()
 
-	# creates a new customer:
-	customer = Customer()
+# creates a new customer:
+customer = Customer()
