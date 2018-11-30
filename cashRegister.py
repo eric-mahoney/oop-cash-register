@@ -8,13 +8,15 @@ import random
 
 # creates a class called Player that keeps track of the names and scores of the players
 class Player:
-	def __init__(self,name=None,score=0):
-		self.name = input("What is your name: ")
+	def __init__(self,firstName=None,lastName=None,score=0):
+		self.firstName = firstName
+		self.lastName = lastName
+		self.name = firstName + " " + lastName
 		self.score = score
 
 	# sets the player's name
 	def setName(self):
-		self.name = input("What is your name: ")
+		self.name = name
 
 	# returns the player's name
 	def returnName(self):
@@ -74,26 +76,27 @@ class Customer:
 			cart_items.append(random.choice(list(self.groceries)),)
 		
 		for item in cart_items:
-			price = self.groceries.get(items)
+			price = self.groceries.get(item)
 			item_prices.append(price)
 			print("ADDED: " + item + " TO CART")
 
+		self.groceries = cart_items
 
 		# returns the completed shopping cart 
-		return shopping_cart
+		return self.groceries
 	
 
 	# COMPLETELY WORKING #
 	def randCustomer(self): 
 		
 		# gets random name from the list above using the random library
-		randomName = self.name[random.randint(0,14)]
+		self.name = self.name[random.randint(0,14)]
 		
 		# gets random money from the list above using the random library
-		randomMoney = self.money[random.randint(0,9)]
+		self.money = self.money[random.randint(0,9)]
 		
 		# empty dictionary that will hold information about the customer
-		customer = {randomName: randomMoney}
+		self.customer = {self.name: self.money}
 		
 		# returns the dictionary of the customer
 		return customer
@@ -140,9 +143,22 @@ class Purchase:
 		return tax
 
 
+# Global Code ---------------------------------------------
+
 # sets up the player
-new_player = Player()
-new_player.setName()
+first = input('What is your first name? ')
+last = input('What is your second name? ')
+player = Player(first,last)
+print('Hi ' + player.name)
+
 
 # creates a new customer:
 customer = Customer()
+customer.randCustomer()
+customer.randGroceries()
+
+# introduces the customer
+print('This customer: ' + str(customer.name) + ' is ready to checkout.')
+print('Their items include: ' + str(customer.groceries))
+
+input()
