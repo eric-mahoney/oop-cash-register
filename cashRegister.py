@@ -65,20 +65,19 @@ class Customer:
 		'ice cream': 4.70
 		}
 
-	# NOT WORKING YET # 
+		self.total = []
+
 	def randGroceries(self):	
 		
 		#empty shopping cart that will hold 5 different items of different prices
 		cart_items = []
-		item_prices = []
 		# for loop that loops through the dictionary and pulls different groceries
 		for i in range(0,5):
-			cart_items.append(random.choice(list(self.groceries)),)
+			cart_items.append(random.choice(list(self.groceries)))
 		
 		for item in cart_items:
 			price = self.groceries.get(item)
-			item_prices.append(price)
-			print("ADDED: " + item + " TO CART")
+			self.total.append(price)
 
 		self.groceries = cart_items
 
@@ -99,7 +98,7 @@ class Customer:
 		self.customer = {self.name: self.money}
 		
 		# returns the dictionary of the customer
-		return customer
+		return self.customer
 
 	def getCustomer(self):
 		customer = randCustomer()
@@ -107,13 +106,17 @@ class Customer:
 
 # defines a Register class that will hold different values of money
 class Register:
-	def __init__(self,one,five,ten,twenty,fifty,oneHundred):
-		self.one = one
-		self.five = five
-		self.ten = ten
-		self.twenty = twenty
-		self.fifty = fifty
-		self.oneHundred = oneHundred
+	def __init__(self,penny=None,nickle=None,dime=None,quarter=None,one=None,five=None,ten=None,twenty=None,fifty=None,oneHundred=None):
+		self.penny = 0.01
+		self.nickle = 0.05
+		self.dime = 0.1
+		self.quarter = 0.25
+		self.one = 1.00
+		self.five = 5.00
+		self.ten = 10.00
+		self.twenty = 20.00
+		self.fifty = 50.00
+		self.oneHundred = 100.000
 
 # creates a class called Score that will be run when we need to keep track of high scores
 class Scores:
@@ -142,23 +145,28 @@ class Purchase:
 		tax = price * va_sales_tax
 		return tax
 
+# sets up the player
+def newPlayer():
+	first = input('What is your first name? ')
+	last = input('What is your second name? ')
+	player = Player(first,last)
+	print('Hi ' + player.name)
+
+def newCustomer():
+	client = Customer()
+	client.randCustomer()
+	client.randGroceries()
+	total = round(sum(client.total), 2)
+	print('This customer: ' + str(client.name) + ' is ready to checkout.')
+	print('Their items include: ' + str(client.groceries))
+	print('Their total amount is: ' + str(total))
 
 # Global Code ---------------------------------------------
-
-# sets up the player
-first = input('What is your first name? ')
-last = input('What is your second name? ')
-player = Player(first,last)
-print('Hi ' + player.name)
-
-
-# creates a new customer:
-customer = Customer()
-customer.randCustomer()
-customer.randGroceries()
-
-# introduces the customer
-print('This customer: ' + str(customer.name) + ' is ready to checkout.')
-print('Their items include: ' + str(customer.groceries))
-
-input()
+print('Welcome to Cash-Register.py!')
+done = False
+newPlayer()
+while done != True:
+	newCustomer()
+	done = input('would you like to generate another customer? yes or no')
+	if(done == 'no'):
+		done = True
