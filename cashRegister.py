@@ -30,7 +30,7 @@ class Customer:
 		self.name = ['John', 'Bob', 'Linda', 'Tom', 'Richard', 'Hubert', 'Alison', 'Maddison', 'Eric', 'Candice', 'Tiffany', 'Sydney', 'Adam', 'William', 'Patricia']
 		
 		# list of different amounts of money that our customers will buy food with.
-		self.money = [9.25, 5.00, 10.00, 7.50, 10.00, 20.00, 5.50, 15.25, 12.75, 35.70]
+		self.money = [10.00, 25.00, 24.50, 19.00, 10.00, 20.00, 5.50, 15.25, 12.75, 35.70]
 		
 		# dictionary list of groceries prices from:
 		# http://www.visualcapitalist.com/decade-grocery-prices/
@@ -85,7 +85,7 @@ class Customer:
 		return self.groceries
 	
 
-	# COMPLETELY WORKING #
+	# generates a random customer from a list
 	def randCustomer(self): 
 		
 		# gets random name from the list above using the random library
@@ -104,9 +104,18 @@ class Customer:
 		customer = randCustomer()
 		return customer
 
+	def calcTax(self):
+		va_sales_tax = 0.043
+		tax = sum(self.total) * va_sales_tax
+		return round(tax,2)
+	def getNewMoney(self):
+		self.money = [10.00, 25.00, 24.50, 19.00, 10.00, 20.00, 5.50, 15.25, 12.75, 35.70]
+		self.money = self.money[random.randint(0,9)]
+		return self.money
+
 # defines a Register class that will hold different values of money
 class Register:
-	def __init__(self,penny=None,nickle=None,dime=None,quarter=None,one=None,five=None,ten=None,twenty=None,fifty=None,oneHundred=None):
+	def __init__(self,penny=None,nickle=None,dime=None,quarter=None,one=None,five=None,ten=None,twenty=None):
 		self.penny = 0.01
 		self.nickle = 0.05
 		self.dime = 0.1
@@ -115,8 +124,6 @@ class Register:
 		self.five = 5.00
 		self.ten = 10.00
 		self.twenty = 20.00
-		self.fifty = 50.00
-		self.oneHundred = 100.000
 
 # creates a class called Score that will be run when we need to keep track of high scores
 class Scores:
@@ -137,7 +144,7 @@ class Scores:
 
 # creates a class for purchases
 class Purchase:
-	def __init__(self):
+	def __init__(self,price):
 		self.price = price
 
 	def calcTax(self):
@@ -156,17 +163,25 @@ def newCustomer():
 	client = Customer()
 	client.randCustomer()
 	client.randGroceries()
-	total = round(sum(client.total), 2)
+	tax_amount = client.calcTax()
+	total = sum(client.total)
+	final_total = round((total + tax_amount),2)
+	while(client.money < final_total):
+		client.getNewMoney()
 	print('This customer: ' + str(client.name) + ' is ready to checkout.')
 	print('Their items include: ' + str(client.groceries))
-	print('Their total amount is: ' + str(total))
+	print('Their final total is: ' + str(final_total))
+	print('\tTheir purchase amount is: ' + str( round(total,2)) )
+	print('\tTheir tax amount is: ' + str(tax_amount))
+	print('They hand you this much money: ' + str(client.money))
 
 # Global Code ---------------------------------------------
+
 print('Welcome to Cash-Register.py!')
 done = False
 newPlayer()
 while done != True:
 	newCustomer()
-	done = input('would you like to generate another customer? yes or no')
+	done = input('would you like to generate another customer? yes or no: ')
 	if(done == 'no'):
 		done = True
