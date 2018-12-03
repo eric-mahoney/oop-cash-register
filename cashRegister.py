@@ -30,7 +30,7 @@ class Customer:
 		self.name = ['John', 'Bob', 'Linda', 'Tom', 'Richard', 'Hubert', 'Alison', 'Maddison', 'Eric', 'Candice', 'Tiffany', 'Sydney', 'Adam', 'William', 'Patricia']
 		
 		# list of different amounts of money that our customers will buy food with.
-		self.money = [10.00, 25.00, 24.50, 19.00, 10.00, 20.00, 5.50, 15.25, 12.75, 35.70]
+		self.money = [15.00,16.00,17.00,18.00,19.00,20.00,21.00,22.00,23.00,24.00,25.00]
 		
 		# dictionary list of groceries prices from:
 		# http://www.visualcapitalist.com/decade-grocery-prices/
@@ -108,8 +108,8 @@ class Customer:
 		va_sales_tax = 0.043
 		tax = sum(self.total) * va_sales_tax
 		return round(tax,2)
-	def getNewMoney(self):
-		self.money = [10.00, 25.00, 24.50, 19.00, 10.00, 20.00, 5.50, 15.25, 12.75, 35.70]
+	def getMoney(self):
+		self.money = [15.00,16.00,17.00,18.00,19.00,20.00,21.00,22.00,23.00,24.00,25.00]
 		self.money = self.money[random.randint(0,9)]
 		return self.money
 
@@ -124,6 +124,7 @@ class Register:
 		self.five = 5.00
 		self.ten = 10.00
 		self.twenty = 20.00
+
 
 # creates a class called Score that will be run when we need to keep track of high scores
 class Scores:
@@ -157,31 +158,61 @@ def newPlayer():
 	first = input('What is your first name? ')
 	last = input('What is your second name? ')
 	player = Player(first,last)
-	print('Hi ' + player.name)
+	print('\nHi ' + player.name)
 
-def newCustomer():
-	client = Customer()
-	client.randCustomer()
-	client.randGroceries()
+def calcCustomer():
 	tax_amount = client.calcTax()
 	total = sum(client.total)
 	final_total = round((total + tax_amount),2)
-	while(client.money < final_total):
-		client.getNewMoney()
-	print('This customer: ' + str(client.name) + ' is ready to checkout.')
-	print('Their items include: ' + str(client.groceries))
-	print('Their final total is: ' + str(final_total))
-	print('\tTheir purchase amount is: ' + str( round(total,2)) )
-	print('\tTheir tax amount is: ' + str(tax_amount))
-	print('They hand you this much money: ' + str(client.money))
+	print('\nThis customer: ' + str(client.name) + ' is ready to checkout.')
+	print('\nTheir items include: ')
+	count = 1
+	for item in client.groceries:
+		print(str(count) + " - " + str(item))
+		count += 1
+	print('\nTheir purchase amount is: ' + str(round(total,2)))
+	print('+ sales tax (' + str(tax_amount) + ")")
+	print("------------------------------")
+	print('FINAL TOTAL: ' + str(final_total))
+	
+	if(client.money < final_total):
+		client.getMoney()
+	
+	return final_total
+
+def checkChange(total,money):
+	print('\nThe customer hands you: ' + str(money))
+	print('The total amount is: ' + str(total))
+	rounded_money = round((money - total),2)
+	print('you need: ' + str(rounded_money) + ' in change.')
+	penny = float(input('how many pennies should you return in change?')) * 0.01
+	nickles = float(input('how many nickles should you return in change?')) * 0.05
+	dimes = float(input('how many dimes should you return in change?')) * 0.10
+	quarters = float(input('how many quarters should you return in change?')) * 0.25
+	ones = int(input('how many one should you return in change?')) * 1
+	fives = int(input('how many fives should you return in change?')) * 5
+	tens = int(input('how many tens should you return in change?')) * 10
+	total_change = round((penny + nickles + dimes + quarters + ones + fives + tens),2)
+
+	if(total_change != rounded_money):
+		print('sorry, you gave the incorrect change.')
+		print('you gave: ' + str(total_change))
+		print('you needed: ' + str(rounded_money))
+	else:
+		print('successfully checked out user!')
 
 # Global Code ---------------------------------------------
 
-print('Welcome to Cash-Register.py!')
+print('\t\t\t\tWelcome to Cash-Register.py!\t\t\t\t')
 done = False
 newPlayer()
 while done != True:
-	newCustomer()
-	done = input('would you like to generate another customer? yes or no: ')
+	client = Customer()
+	client.randCustomer()
+	client.randGroceries()
+	total = calcCustomer()
+	money = client.money
+	checkChange(total,money)
+	done = input('\nWould you like to play again? yes or no: ')
 	if(done == 'no'):
 		done = True
