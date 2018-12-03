@@ -175,7 +175,7 @@ def calcCustomer():
 	print("------------------------------")
 	print('FINAL TOTAL: ' + str(final_total))
 	
-	if(client.money < final_total):
+	while(client.money < final_total):
 		client.getMoney()
 	
 	return final_total
