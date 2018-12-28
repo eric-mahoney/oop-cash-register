@@ -1,5 +1,5 @@
 # Cash-Register.py
-Program designed to simulate how a cash register functions with different, randomly generated customers. Developed to showcase an understanding in object-oriented programming for IT 209.
+Program designed to simulate how a cash register functions with different, randomly generated customers. Developed to showcase an understanding in object-oriented programming for [IT 209](https://ist.gmu.edu/wp-content/uploads/IT209Fall2018Syllabus.pdf).
 
 ## **Built With:**
 Python - uses object-oriented python to simulate a cash register.
